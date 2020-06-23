@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -24,17 +25,22 @@ public class Player : MonoBehaviour
     public direction facingDirection;
 
     [Header("Sprites")]
-    [SerializeField] Sprite sprUp;
-    [SerializeField] Sprite sprDown;
-    [SerializeField] Sprite sprLeft;
-    [SerializeField] Sprite sprRight;
+    [SerializeField] Sprite sprUp = null;
+    [SerializeField] Sprite sprDown = null;
+    [SerializeField] Sprite sprLeft = null;
+    [SerializeField] Sprite sprRight = null;
+
+    [Header("Checks")]
+    [SerializeField] GameObject checkerUp = null;
+    [SerializeField] GameObject checkerDown = null;
+    [SerializeField] GameObject checkerRight = null;
+    [SerializeField] GameObject checkerLeft = null;
 
     [Header("Checks")]
     public LayerMask obstacleLayer;
 
     SpriteRenderer sr;
     UIController ui;
-
 
     private void Start()
     {
@@ -49,40 +55,22 @@ public class Player : MonoBehaviour
         // movement
         if (Input.GetKeyDown(KeyCode.W))
         {
-            facingDirection = direction.up;
-            sr.sprite = sprUp;
-
-            CheckMove(facingDirection);
+            CheckMove(direction.up);
         }
 
         if (Input.GetKeyDown(KeyCode.S))
         {
-            facingDirection = direction.down;
-            sr.sprite = sprDown;
-
-            CheckMove(facingDirection);
+            CheckMove(direction.down);
         }
 
         if (Input.GetKeyDown(KeyCode.D))
         {
-            facingDirection = direction.right;
-            sr.sprite = sprRight;
-
-            CheckMove(facingDirection);
+            CheckMove(direction.right);
         }
 
         if (Input.GetKeyDown(KeyCode.A))
         {
-            facingDirection = direction.left;
-            sr.sprite = sprLeft;
-
-            CheckMove(facingDirection);
-        }
-
-        // use type
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            Attack(facingDirection);
+            CheckMove(direction.left);
         }
     }
 
@@ -90,50 +78,130 @@ public class Player : MonoBehaviour
     {
         if (dir == direction.up)
         {
-            Collider2D obstacle = Physics2D.OverlapCircle(new Vector2(transform.position.x, transform.position.y + 1f), 0.1f, obstacleLayer);
+            Collider2D obstacle = Physics2D.OverlapCircle(checkerUp.transform.position, 0.1f, obstacleLayer);
             if (obstacle != null && obstacle.GetComponent<Tile>())
             {
                 if (obstacle.GetComponent<Tile>().walkableTile)
                 {
                     transform.position = new Vector2(transform.position.x, transform.position.y + 1.1f);
+
+                    facingDirection = direction.up;
+                    sr.sprite = sprUp;
+
                     NextType();
+
+                    CheckNewPos();
                 }
+                else
+                {
+                    facingDirection = direction.up;
+                    sr.sprite = sprUp;
+
+                    Attack(facingDirection);
+                }
+            }
+            else
+            {
+                transform.position = new Vector2(transform.position.x, transform.position.y + 1.1f);
+                facingDirection = direction.up;
+                sr.sprite = sprUp;
+                KillPlayer();
             }
         }
         else if (dir == direction.down)
         {
-            Collider2D obstacle = Physics2D.OverlapCircle(new Vector2(transform.position.x, transform.position.y - 1.3f), 0.2f, obstacleLayer);
+            Collider2D obstacle = Physics2D.OverlapCircle(checkerDown.transform.position, 0.1f, obstacleLayer);
             if (obstacle != null && obstacle.GetComponent<Tile>())
             {
                 if (obstacle.GetComponent<Tile>().walkableTile)
                 {
                     transform.position = new Vector2(transform.position.x, transform.position.y - 1.1f);
+
+                    facingDirection = direction.down;
+                    sr.sprite = sprDown;
+
                     NextType();
+
+                    CheckNewPos();
                 }
+                else
+                {
+                    facingDirection = direction.down;
+                    sr.sprite = sprDown;
+
+                    Attack(facingDirection);
+                }
+            }
+            else
+            {
+                transform.position = new Vector2(transform.position.x, transform.position.y - 1.1f);
+                facingDirection = direction.down;
+                sr.sprite = sprDown;
+                KillPlayer();
             }
         }
         else if (dir == direction.right)
         {
-            Collider2D obstacle = Physics2D.OverlapCircle(new Vector2(transform.position.x + .9f, transform.position.y), 0.1f, obstacleLayer);
+            Collider2D obstacle = Physics2D.OverlapCircle(checkerRight.transform.position, 0.01f, obstacleLayer);
             if (obstacle != null && obstacle.GetComponent<Tile>())
             {
                 if (obstacle.GetComponent<Tile>().walkableTile)
                 {
                     transform.position = new Vector2(transform.position.x + 1.1f, transform.position.y);
+
+                    facingDirection = direction.right;
+                    sr.sprite = sprRight;
+
                     NextType();
+
+                    CheckNewPos();
                 }
+                else
+                {
+                    facingDirection = direction.right;
+                    sr.sprite = sprRight;
+
+                    Attack(facingDirection);
+                }
+            }
+            else
+            {
+                transform.position = new Vector2(transform.position.x + 1.1f, transform.position.y);
+                facingDirection = direction.right;
+                sr.sprite = sprRight;
+                KillPlayer();
             }
         }
         else if (dir == direction.left)
         {
-            Collider2D obstacle = Physics2D.OverlapCircle(new Vector2(transform.position.x - .9f, transform.position.y), 0.1f, obstacleLayer);
+            Collider2D obstacle = Physics2D.OverlapCircle(checkerLeft.transform.position, 0.01f, obstacleLayer);
             if (obstacle != null && obstacle.GetComponent<Tile>())
             {
                 if (obstacle.GetComponent<Tile>().walkableTile)
                 {
                     transform.position = new Vector2(transform.position.x - 1.1f, transform.position.y);
+
+                    facingDirection = direction.left;
+                    sr.sprite = sprLeft;
+
                     NextType();
+
+                    CheckNewPos();
                 }
+                else
+                {
+                    facingDirection = direction.left;
+                    sr.sprite = sprLeft;
+
+                    Attack(facingDirection);
+                }
+            }
+            else
+            {
+                transform.position = new Vector2(transform.position.x - 1.1f, transform.position.y);
+                facingDirection = direction.left;
+                sr.sprite = sprLeft;
+                KillPlayer();
             }
         }
 
@@ -143,58 +211,119 @@ public class Player : MonoBehaviour
     {
         if (dir == direction.up)
         {
-            Collider2D obstacle = Physics2D.OverlapCircle(new Vector2(transform.position.x, transform.position.y + 1f), 0.1f, obstacleLayer);
+            Collider2D obstacle = Physics2D.OverlapCircle(checkerUp.transform.position, 0.1f, obstacleLayer);
             if (obstacle != null && obstacle.GetComponent<Tile>())
             {
                 if (!obstacle.GetComponent<Tile>().walkableTile)
                 {
-                    switch (obstacle.GetComponent<Tile>().tileType)
-                    {
-                        case Tile.type.paper:
-                            if (currentType == activeType.paper)
-                            {
-                                // BOUNCE ANIMATION
-                            }
-                            else if (currentType == activeType.rock)
-                            {
-                                // DETH
-                            }
-                            else if (currentType == activeType.scissors)
-                            {
-                                obstacle.GetComponent<Tile>().ClearTile();
-                            }
-                            break;
-                        case Tile.type.rock:
-                            if (currentType == activeType.paper)
-                            {
-                                obstacle.GetComponent<Tile>().ClearTile();
-                            }
-                            else if (currentType == activeType.rock)
-                            {
-                                
-                            }
-                            else if (currentType == activeType.scissors)
-                            {
-
-                            }
-                            break;
-                        case Tile.type.scissors:
-                            if (currentType == activeType.paper)
-                            {
-                                // BOUNCE ANIMATION
-                            }
-                            else if (currentType == activeType.rock)
-                            {
-                                obstacle.GetComponent<Tile>().ClearTile();
-                            }
-                            else if (currentType == activeType.scissors)
-                            {
-
-                            }
-                            break;
-                    }
+                    CheckAttackPos(new Vector2(transform.position.x, transform.position.y + 1.1f), obstacle.GetComponent<Tile>().tileType, obstacle.GetComponent<Tile>());
                 }
             }
+        }
+        else if (dir == direction.down)
+        {
+            Collider2D obstacle = Physics2D.OverlapCircle(checkerDown.transform.position, 0.1f, obstacleLayer);
+            if (obstacle != null && obstacle.GetComponent<Tile>())
+            {
+                if (!obstacle.GetComponent<Tile>().walkableTile)
+                {
+                    CheckAttackPos(new Vector2(transform.position.x, transform.position.y - 1.1f), obstacle.GetComponent<Tile>().tileType, obstacle.GetComponent<Tile>());
+                }
+            }
+        }
+        else if (dir == direction.right)
+        {
+            Collider2D obstacle = Physics2D.OverlapCircle(checkerRight.transform.position, 0.1f, obstacleLayer);
+            if (obstacle != null && obstacle.GetComponent<Tile>())
+            {
+                if (!obstacle.GetComponent<Tile>().walkableTile)
+                {
+                    CheckAttackPos(new Vector2(transform.position.x + 1.1f, transform.position.y), obstacle.GetComponent<Tile>().tileType, obstacle.GetComponent<Tile>());
+                }
+            }
+        }
+        else if (dir == direction.left)
+        {
+            Collider2D obstacle = Physics2D.OverlapCircle(checkerLeft.transform.position, 0.1f, obstacleLayer);
+            if (obstacle != null && obstacle.GetComponent<Tile>())
+            {
+                if (!obstacle.GetComponent<Tile>().walkableTile)
+                {
+                    CheckAttackPos(new Vector2(transform.position.x - 1.1f, transform.position.y), obstacle.GetComponent<Tile>().tileType, obstacle.GetComponent<Tile>());
+                }
+            }
+        }
+    }
+
+    void CheckAttackPos(Vector2 checkVector, Tile.type tileType, Tile tile)
+    {
+        switch (tileType)
+        {
+            case Tile.type.paper:
+                if (currentType == activeType.paper)
+                {
+                    // BOUNCE ANIMATION
+                }
+                else if (currentType == activeType.rock)
+                {
+                    KillPlayer();
+                }
+                else if (currentType == activeType.scissors)
+                {
+                    tile.ClearTile();
+                    transform.position = checkVector;
+                    NextType();
+                    //CheckNewPos();
+                }
+                break;
+            case Tile.type.rock:
+                if (currentType == activeType.paper)
+                {
+                    tile.ClearTile();
+                    transform.position = checkVector;
+                    NextType();
+                    //CheckNewPos();
+                }
+                else if (currentType == activeType.rock)
+                {
+
+                }
+                else if (currentType == activeType.scissors)
+                {
+                    KillPlayer();
+                }
+                break;
+            case Tile.type.scissors:
+                if (currentType == activeType.paper)
+                {
+                    KillPlayer();
+                }
+                else if (currentType == activeType.rock)
+                {
+                    tile.ClearTile();
+                    transform.position = checkVector;
+                    NextType();
+                    //CheckNewPos();
+                }
+                else if (currentType == activeType.scissors)
+                {
+
+                }
+                break;
+        }
+    }
+
+    void KillPlayer()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    void CheckNewPos()
+    {
+        Collider2D obstacle = Physics2D.OverlapCircle(new Vector2(transform.position.x, transform.position.y), 0.1f, obstacleLayer);
+        if(obstacle == null)
+        {
+            KillPlayer();
         }
     }
 

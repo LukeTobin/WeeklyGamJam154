@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Tile : MonoBehaviour
 {
@@ -18,8 +19,10 @@ public class Tile : MonoBehaviour
     [Space]
     public type tileType;
     public bool endNode;
+    public string endName;
     [Space]
-    [SerializeField] Sprite baseSprite;
+    [SerializeField] Sprite baseSprite = null;
+    [SerializeField] GameObject child = null;
 
     SpriteRenderer sr;
 
@@ -32,6 +35,9 @@ public class Tile : MonoBehaviour
     {
         walkableTile = true;
         sr.sprite = baseSprite;
-    }
+        child.SetActive(false);
 
+        if (endNode)
+            SceneManager.LoadScene(endName);
+    }
 }
