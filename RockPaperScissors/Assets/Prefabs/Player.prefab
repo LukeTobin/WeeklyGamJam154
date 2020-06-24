@@ -1,5 +1,35 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &441751165769543814
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2300599777431885345}
+  m_Layer: 0
+  m_Name: CENTER
+  m_TagString: Untagged
+  m_Icon: {fileID: 7422848464349959988, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2300599777431885345
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 441751165769543814}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.337, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 5445027352602903014}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5445027352602903015
 GameObject:
   m_ObjectHideFlags: 0
@@ -31,6 +61,7 @@ Transform:
   - {fileID: 5445027353047386287}
   - {fileID: 5445027352939436878}
   - {fileID: 5445027353696681535}
+  - {fileID: 2300599777431885345}
   m_Father: {fileID: 5445027353684022286}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -227,6 +258,7 @@ MonoBehaviour:
   sprLeft: {fileID: 4653262722311960204, guid: 91e1cfa4ccf8b44409cd567cfdb26a23, type: 3}
   sprRight: {fileID: 1118733521418548952, guid: 39638d8a202c26e45a438bf2c4e5ab29,
     type: 3}
+  checkerCenter: {fileID: 441751165769543814}
   checkerUp: {fileID: 5445027353336198797}
   checkerDown: {fileID: 5445027353047386272}
   checkerRight: {fileID: 5445027352939436879}
@@ -234,6 +266,7 @@ MonoBehaviour:
   obstacleLayer:
     serializedVersion: 2
     m_Bits: 256
+  currentTile: {fileID: 0}
 --- !u!1 &5445027353696681520
 GameObject:
   m_ObjectHideFlags: 0

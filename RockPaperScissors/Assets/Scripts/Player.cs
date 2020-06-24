@@ -31,6 +31,7 @@ public class Player : MonoBehaviour
     [SerializeField] Sprite sprRight = null;
 
     [Header("Checks")]
+    [SerializeField] GameObject checkerCenter = null;
     [SerializeField] GameObject checkerUp = null;
     [SerializeField] GameObject checkerDown = null;
     [SerializeField] GameObject checkerRight = null;
@@ -38,6 +39,7 @@ public class Player : MonoBehaviour
 
     [Header("Checks")]
     public LayerMask obstacleLayer;
+    [SerializeField] GameObject currentTile = null;
 
     SpriteRenderer sr;
     UIController ui;
@@ -55,21 +57,29 @@ public class Player : MonoBehaviour
         // movement
         if (Input.GetKeyDown(KeyCode.W))
         {
+            if(currentTile != null)
+                Destroy(currentTile.gameObject);
             CheckMove(direction.up);
         }
 
         if (Input.GetKeyDown(KeyCode.S))
         {
+            if (currentTile != null)
+                Destroy(currentTile.gameObject);
             CheckMove(direction.down);
         }
 
         if (Input.GetKeyDown(KeyCode.D))
         {
+            if (currentTile != null)
+                Destroy(currentTile.gameObject);
             CheckMove(direction.right);
         }
 
         if (Input.GetKeyDown(KeyCode.A))
         {
+            if (currentTile != null)
+                Destroy(currentTile.gameObject);
             CheckMove(direction.left);
         }
     }
@@ -83,6 +93,8 @@ public class Player : MonoBehaviour
             {
                 if (obstacle.GetComponent<Tile>().walkableTile)
                 {
+                    currentTile = obstacle.gameObject;
+
                     transform.position = new Vector2(transform.position.x, transform.position.y + 1.1f);
 
                     facingDirection = direction.up;
@@ -115,6 +127,8 @@ public class Player : MonoBehaviour
             {
                 if (obstacle.GetComponent<Tile>().walkableTile)
                 {
+                    currentTile = obstacle.gameObject;
+
                     transform.position = new Vector2(transform.position.x, transform.position.y - 1.1f);
 
                     facingDirection = direction.down;
@@ -147,6 +161,8 @@ public class Player : MonoBehaviour
             {
                 if (obstacle.GetComponent<Tile>().walkableTile)
                 {
+                    currentTile = obstacle.gameObject;
+
                     transform.position = new Vector2(transform.position.x + 1.1f, transform.position.y);
 
                     facingDirection = direction.right;
@@ -179,6 +195,8 @@ public class Player : MonoBehaviour
             {
                 if (obstacle.GetComponent<Tile>().walkableTile)
                 {
+                    currentTile = obstacle.gameObject;
+
                     transform.position = new Vector2(transform.position.x - 1.1f, transform.position.y);
 
                     facingDirection = direction.left;
@@ -272,6 +290,7 @@ public class Player : MonoBehaviour
                 {
                     tile.ClearTile();
                     transform.position = checkVector;
+                    currentTile = tile.gameObject;
                     NextType();
                     //CheckNewPos();
                 }
@@ -281,6 +300,7 @@ public class Player : MonoBehaviour
                 {
                     tile.ClearTile();
                     transform.position = checkVector;
+                    currentTile = tile.gameObject;
                     NextType();
                     //CheckNewPos();
                 }
@@ -302,6 +322,7 @@ public class Player : MonoBehaviour
                 {
                     tile.ClearTile();
                     transform.position = checkVector;
+                    currentTile = tile.gameObject;
                     NextType();
                     //CheckNewPos();
                 }
