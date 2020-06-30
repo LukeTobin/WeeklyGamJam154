@@ -25,8 +25,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 461969479086924447}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.15, z: 0}
-  m_LocalScale: {x: 0.71757, y: 0.71757, z: 0.71757}
+  m_LocalPosition: {x: 0, y: 0.18, z: 0}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children: []
   m_Father: {fileID: 7643540409298079243}
   m_RootOrder: 0
@@ -180,7 +180,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   walkableTile: 0
-  tileType: 4
+  tileType: 5
   endNode: 0
   endName: 
   baseSprite: {fileID: -1527254527514638123, guid: 7e7dd68eab3f29c4192e8a2f02ce2969,

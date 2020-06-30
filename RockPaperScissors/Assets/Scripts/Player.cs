@@ -57,29 +57,29 @@ public class Player : MonoBehaviour
         // movement
         if (Input.GetKeyDown(KeyCode.W))
         {
-            if(currentTile != null)
-                Destroy(currentTile.gameObject);
+            if (currentTile != null)
+                currentTile.GetComponent<Tile>().DestroyTile();
             CheckMove(direction.up);
         }
 
         if (Input.GetKeyDown(KeyCode.S))
         {
             if (currentTile != null)
-                Destroy(currentTile.gameObject);
+                currentTile.GetComponent<Tile>().DestroyTile();
             CheckMove(direction.down);
         }
 
         if (Input.GetKeyDown(KeyCode.D))
         {
             if (currentTile != null)
-                Destroy(currentTile.gameObject);
+                currentTile.GetComponent<Tile>().DestroyTile();
             CheckMove(direction.right);
         }
 
         if (Input.GetKeyDown(KeyCode.A))
         {
             if (currentTile != null)
-                Destroy(currentTile.gameObject);
+                currentTile.GetComponent<Tile>().DestroyTile();
             CheckMove(direction.left);
         }
     }
@@ -280,7 +280,7 @@ public class Player : MonoBehaviour
             case Tile.type.paper:
                 if (currentType == activeType.paper)
                 {
-                    // BOUNCE ANIMATION
+                    KillPlayer();
                 }
                 else if (currentType == activeType.rock)
                 {
@@ -306,7 +306,7 @@ public class Player : MonoBehaviour
                 }
                 else if (currentType == activeType.rock)
                 {
-
+                    KillPlayer();
                 }
                 else if (currentType == activeType.scissors)
                 {
@@ -328,7 +328,7 @@ public class Player : MonoBehaviour
                 }
                 else if (currentType == activeType.scissors)
                 {
-
+                    KillPlayer();
                 }
                 break;
         }

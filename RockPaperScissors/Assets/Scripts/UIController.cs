@@ -6,6 +6,12 @@ using TMPro;
 
 public class UIController : MonoBehaviour
 {
+    [Header("New Sizes")]
+    public int boardMin;
+    public int boardMax;
+    public int imgMin;
+    public int imgMax;
+
     [Header("Type Images")]
     [SerializeField] Image rockImg = null;
     [SerializeField] Image rockImg2 = null;
@@ -19,34 +25,34 @@ public class UIController : MonoBehaviour
         switch (typing)
         {
             case Player.activeType.rock:
-                rockImg.rectTransform.sizeDelta = new Vector2(80, 80);
-                rockImg2.rectTransform.sizeDelta = new Vector2(70, 70);
+                rockImg.rectTransform.sizeDelta = new Vector2(boardMax, boardMax);
+                rockImg2.rectTransform.sizeDelta = new Vector2(imgMax, imgMax);
 
-                paperImg.rectTransform.sizeDelta = new Vector2(50, 50);
-                paperImg2.rectTransform.sizeDelta = new Vector2(40, 40);
+                paperImg.rectTransform.sizeDelta = new Vector2(boardMin, boardMin);
+                paperImg2.rectTransform.sizeDelta = new Vector2(imgMin, imgMin);
 
-                scissorsImg.rectTransform.sizeDelta = new Vector2(50, 50);
-                scissorsImg2.rectTransform.sizeDelta = new Vector2(40, 40);
+                scissorsImg.rectTransform.sizeDelta = new Vector2(boardMin, boardMin);
+                scissorsImg2.rectTransform.sizeDelta = new Vector2(imgMin, imgMin);
                 break;
             case Player.activeType.paper:
-                rockImg.rectTransform.sizeDelta = new Vector2(50, 50);
-                rockImg2.rectTransform.sizeDelta = new Vector2(40, 40);
+                rockImg.rectTransform.sizeDelta = new Vector2(boardMin, boardMin);
+                rockImg2.rectTransform.sizeDelta = new Vector2(imgMin, imgMin);
 
-                paperImg.rectTransform.sizeDelta = new Vector2(80, 80);
-                paperImg2.rectTransform.sizeDelta = new Vector2(70, 70);
+                paperImg.rectTransform.sizeDelta = new Vector2(boardMax, boardMax);
+                paperImg2.rectTransform.sizeDelta = new Vector2(imgMax, imgMax);
 
-                scissorsImg.rectTransform.sizeDelta = new Vector2(50, 50);
-                scissorsImg2.rectTransform.sizeDelta = new Vector2(40, 40);
+                scissorsImg.rectTransform.sizeDelta = new Vector2(boardMin, boardMin);
+                scissorsImg2.rectTransform.sizeDelta = new Vector2(imgMin, imgMin);
                 break;
             case Player.activeType.scissors:
-                rockImg.rectTransform.sizeDelta = new Vector2(50, 50);
-                rockImg2.rectTransform.sizeDelta = new Vector2(40, 40);
+                rockImg.rectTransform.sizeDelta = new Vector2(boardMin, boardMin);
+                rockImg2.rectTransform.sizeDelta = new Vector2(imgMin, imgMin);
 
-                paperImg.rectTransform.sizeDelta = new Vector2(50, 50);
-                paperImg2.rectTransform.sizeDelta = new Vector2(40, 40);
+                paperImg.rectTransform.sizeDelta = new Vector2(boardMin, boardMin);
+                paperImg2.rectTransform.sizeDelta = new Vector2(imgMin, imgMin);
 
-                scissorsImg.rectTransform.sizeDelta = new Vector2(80, 80);
-                scissorsImg2.rectTransform.sizeDelta = new Vector2(70, 70);
+                scissorsImg.rectTransform.sizeDelta = new Vector2(boardMax, boardMax);
+                scissorsImg2.rectTransform.sizeDelta = new Vector2(imgMax, imgMax);
                 break;
         }
     }

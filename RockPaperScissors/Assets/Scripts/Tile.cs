@@ -8,6 +8,7 @@ public class Tile : MonoBehaviour
     public enum type
     {
         normal,
+        purple,
         stairs,
         rock,
         paper,
@@ -25,6 +26,7 @@ public class Tile : MonoBehaviour
     [SerializeField] GameObject child = null;
 
     SpriteRenderer sr;
+    int health = 2;
 
     public void Start()
     {
@@ -39,5 +41,26 @@ public class Tile : MonoBehaviour
 
         if (endNode)
             SceneManager.LoadScene(endName);
+    }
+
+    public void DestroyTile()
+    {
+        if (tileType == type.purple)
+        {
+            health--;
+            if (health < 1)
+            {
+                Destroy(this.gameObject);
+            }
+            else
+            {
+                sr.sprite = baseSprite;
+            }
+        }
+        else
+        {
+            sr.sprite = baseSprite;
+            Destroy(this.gameObject);
+        }
     }
 }
